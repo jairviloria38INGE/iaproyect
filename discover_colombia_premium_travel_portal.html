@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Colombia | Unforgettable Journeys</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        emeraldCol: {
+                            50: '#f0fdf6',
+                            100: '#dcfce9',
+                            500: '#10b981',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#0d4a34',
+                            950: '#062b1e',
+                        },
+                        goldCol: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-nav {
+            background: rgba(13, 74, 52, 0.90);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .hero-pattern {
+            background-image: linear-gradient(180deg, rgba(6, 43, 30, 0.65) 0%, rgba(13, 74, 52, 0.88) 100%),
+            url('https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=2000&q=85');
+            background-size: cover;
+            background-position: center;
+        }
+        .card-zoom {
+            overflow: hidden;
+        }
+        .card-zoom img {
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .card-zoom:hover img {
+            transform: scale(1.08);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0d4a34;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d97706;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-goldCol-500 selection:text-white flex flex-col min-h-screen">
+
+    <!-- HEADER & NAVBAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand / Logo -->
+                <a href="#home" onclick="showTab('home')" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-goldCol-500 to-amber-300 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+                        <span class="text-xl">🇨🇴</span>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold tracking-wide text-white font-serif block leading-none">Discover</span>
+                        <span class="text-xs uppercase tracking-widest text-goldCol-400 font-bold">Colombia</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-1 bg-white/10 p-1.5 rounded-full border border-white/10 shadow-inner">
+                    <button onclick="showTab('home')" id="nav-btn-home" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white hover:text-goldCol-400">
+                        Home
+                    </button>
+                    <button onclick="showTab('destinations')" id="nav-btn-destinations" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white hover:text-goldCol-400">
+                        Destinations
+                    </button>
+                    <button onclick="showTab('culture')" id="nav-btn-culture" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white hover:text-goldCol-400">
+                        Culture & Heritage
+                    </button>
+                    <button onclick="showTab('activities')" id="nav-btn-activities" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white hover:text-goldCol-400">
+                        Activities
+                    </button>
+                    <button onclick="showTab('contact')" id="nav-btn-contact" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 text-white hover:text-goldCol-400">
+                        Contact
+                    </button>
+                </nav>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" type="button" class="p-2 rounded-lg text-white hover:text-goldCol-400 hover:bg-white/10 focus:outline-none transition-colors" aria-label="Toggle Navigation Menu">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden bg-emeraldCol-950/95 backdrop-blur-xl border-t border-white/10 px-4 pt-3 pb-6 space-y-2">
+            <button onclick="showTab('home'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-house mr-3 text-goldCol-400"></i> Home
+            </button>
+            <button onclick="showTab('destinations'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-map-location-dot mr-3 text-goldCol-400"></i> Destinations
+            </button>
+            <button onclick="showTab('culture'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-drum mr-3 text-goldCol-400"></i> Culture & Heritage
+            </button>
+            <button onclick="showTab('activities'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-compass mr-3 text-goldCol-400"></i> Activities
+            </button>
+            <button onclick="showTab('contact'); toggleMobileMenu()" class="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10 transition-colors">
+                <i class="fa-solid fa-paper-plane mr-3 text-goldCol-400"></i> Contact
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main class="flex-grow pt-20">
+
+        <!-- ================= SECTION: HOME ================= -->
+        <section id="tab-home" class="tab-content block">
+            <!-- Hero Banner -->
+            <div class="relative min-h-[92vh] hero-pattern flex items-center justify-center text-center px-4 sm:px-6 lg:px-8 py-20">
+                <div class="max-w-4xl mx-auto space-y-8 animate-fade-in">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-goldCol-400 text-xs sm:text-sm font-semibold uppercase tracking-widest shadow-sm">
+                        <i class="fa-solid fa-compass animate-spin text-goldCol-400" style="animation-duration: 9s;"></i>
+                        The Land of Beauty & Diversity
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white font-serif leading-tight drop-shadow-md">
+                        Experience the Magic of <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-goldCol-400 to-yellow-200">Colombia</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-200 max-w-2xl mx-auto font-light leading-relaxed">
+                        From pristine Caribbean shores to mist-shrouded Andean peaks, immerse yourself in world-class biodiversity, culinary heritage, and vibrant rhythm.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                        <button onclick="showTab('destinations')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-goldCol-500 to-amber-500 text-emeraldCol-950 font-bold hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] transform hover:-translate-y-1 transition duration-300 flex items-center justify-center gap-3">
+                            <span>Explore Destinations</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                        <button onclick="showTab('culture')" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-md border border-white/25 transition duration-300 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-heart text-goldCol-400"></i> Discover Culture
+                        </button>
+                    </div>
+
+                    <!-- Highlight Counters -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 max-w-3xl mx-auto border-t border-white/10">
+                        <div class="p-3">
+                            <p class="text-3xl font-extrabold text-white font-serif">+1,900</p>
+                            <p class="text-xs text-slate-300 uppercase tracking-wider">Bird Species (#1 Global)</p>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-3xl font-extrabold text-goldCol-400 font-serif">2 Oceans</p>
+                            <p class="text-xs text-slate-300 uppercase tracking-wider">Pacific & Atlantic</p>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-3xl font-extrabold text-white font-serif">#1</p>
+                            <p class="text-xs text-slate-300 uppercase tracking-wider">Mild Arabica Coffee</p>
+                        </div>
+                        <div class="p-3">
+                            <p class="text-3xl font-extrabold text-goldCol-400 font-serif">6 Regions</p>
+                            <p class="text-xs text-slate-300 uppercase tracking-wider">Unique & Untamed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlights Overview -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-14">
+                        <h2 class="text-xs uppercase font-bold tracking-widest text-emeraldCol-800">Why Travel With Us?</h2>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 font-serif">Authentic Journeys in Every Corner</h3>
+                        <div class="w-20 h-1 bg-goldCol-500 mx-auto mt-4 rounded-full"></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-8 rounded-2xl bg-emeraldCol-50/60 border border-emeraldCol-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <div class="w-14 h-14 rounded-2xl bg-emeraldCol-900 text-goldCol-400 flex items-center justify-center text-2xl mb-6 shadow-md">
+                                <i class="fa-solid fa-umbrella-beach"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-emeraldCol-950 mb-3">Paradise Coastlines</h4>
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                Secluded white-sand coves, turquoise reefs, and radiant sunsets across the Rosario Archipelago and Tayrona National Park.
+                            </p>
+                        </div>
+
+                        <div class="p-8 rounded-2xl bg-amber-50/60 border border-amber-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <div class="w-14 h-14 rounded-2xl bg-goldCol-500 text-emeraldCol-950 flex items-center justify-center text-2xl mb-6 shadow-md">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-3">Celebrated Flavors</h4>
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                Savor rich Andean stews, fresh coastal ceviches, coconut rice, and freshly roasted single-origin specialty coffees.
+                            </p>
+                        </div>
+
+                        <div class="p-8 rounded-2xl bg-emeraldCol-50/60 border border-emeraldCol-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <div class="w-14 h-14 rounded-2xl bg-emeraldCol-900 text-goldCol-400 flex items-center justify-center text-2xl mb-6 shadow-md">
+                                <i class="fa-solid fa-music"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-emeraldCol-950 mb-3">Rhythm & Traditions</h4>
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                Feel the infectious pulse of Cumbia, Vallenato accordion ballads, Champeta beats, and world-renowned salsa halls.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: DESTINATIONS ================= -->
+        <section id="tab-destinations" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-emeraldCol-700 bg-emeraldCol-50 px-3.5 py-1.5 rounded-full border border-emeraldCol-200">
+                    Featured Cities & Regions
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-emeraldCol-950 font-serif mt-4">Popular Destinations</h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">
+                    Choose a destination to view must-visit landmarks, traditional gastronomy, and curated activities.
+                </p>
+                <div class="w-24 h-1 bg-goldCol-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Destinations Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card Cartagena -->
+                <div class="card-zoom group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=800&q=80" alt="Cartagena" class="w-full h-full object-cover">
+                        <span class="absolute top-4 right-4 bg-emeraldCol-950/80 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-300/30">
+                            Caribbean
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-emeraldCol-900 font-serif mb-2">Cartagena</h3>
+                        <p class="text-slate-600 text-sm mb-6 flex-grow">
+                            Centuries-old stone ramparts, pastel colonial facades, vibrant plazas, and tropical coastal breezes.
+                        </p>
+                        <button onclick="openModal('modal-cartagena')" class="w-full py-3 px-4 rounded-xl bg-emeraldCol-900 hover:bg-emeraldCol-800 text-white font-semibold text-sm transition-colors duration-200 flex items-center justify-center gap-2 group">
+                            <span>Explore City</span>
+                            <i class="fa-solid fa-arrow-right-long text-goldCol-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Santa Marta -->
+                <div class="card-zoom group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=800&q=80" alt="Santa Marta" class="w-full h-full object-cover">
+                        <span class="absolute top-4 right-4 bg-emeraldCol-950/80 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-300/30">
+                            Nature & Coast
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-emeraldCol-900 font-serif mb-2">Santa Marta</h3>
+                        <p class="text-slate-600 text-sm mb-6 flex-grow">
+                            Where the snow-capped Sierra Nevada meets crystal waters, indigenous trails, and pristine bays.
+                        </p>
+                        <button onclick="openModal('modal-santamarta')" class="w-full py-3 px-4 rounded-xl bg-emeraldCol-900 hover:bg-emeraldCol-800 text-white font-semibold text-sm transition-colors duration-200 flex items-center justify-center gap-2 group">
+                            <span>Explore City</span>
+                            <i class="fa-solid fa-arrow-right-long text-goldCol-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Medellín -->
+                <div class="card-zoom group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1568632234157-ce7aecd03d0d?auto=format&fit=crop&w=800&q=80" alt="Medellín" class="w-full h-full object-cover">
+                        <span class="absolute top-4 right-4 bg-emeraldCol-950/80 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-300/30">
+                            Innovation
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-emeraldCol-900 font-serif mb-2">Medellín</h3>
+                        <p class="text-slate-600 text-sm mb-6 flex-grow">
+                            The City of Eternal Spring, celebrated for its floral heritage, cable cars, outdoor art, and warm locals.
+                        </p>
+                        <button onclick="openModal('modal-medellin')" class="w-full py-3 px-4 rounded-xl bg-emeraldCol-900 hover:bg-emeraldCol-800 text-white font-semibold text-sm transition-colors duration-200 flex items-center justify-center gap-2 group">
+                            <span>Explore City</span>
+                            <i class="fa-solid fa-arrow-right-long text-goldCol-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Bogotá -->
+                <div class="card-zoom group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 border border-slate-100 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=800&q=80"" alt="Bogotá" class="w-full h-full object-cover">
+                        <span class="absolute top-4 right-4 bg-emeraldCol-950/80 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-300/30">
+                            Capital
+                        </span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-bold text-emeraldCol-900 font-serif mb-2">Bogotá</h3>
+                        <p class="text-slate-600 text-sm mb-6 flex-grow">
+                            The high-altitude Andean capital with gold treasures, cobblestone alleys, and mountain sanctuaries.
+                        </p>
+                        <button onclick="openModal('modal-bogota')" class="w-full py-3 px-4 rounded-xl bg-emeraldCol-900 hover:bg-emeraldCol-800 text-white font-semibold text-sm transition-colors duration-200 flex items-center justify-center gap-2 group">
+                            <span>Explore City</span>
+                            <i class="fa-solid fa-arrow-right-long text-goldCol-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: CULTURE & HERITAGE ================= -->
+        <section id="tab-culture" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-emeraldCol-700 bg-emeraldCol-50 px-3.5 py-1.5 rounded-full border border-emeraldCol-200">
+                    Identity, Culinary Arts & Festivals
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-emeraldCol-950 font-serif mt-4">Culture of Our Destinations</h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">
+                    Discover the culinary traditions, musical folklore, and legendary festivities that define the Colombian spirit.
+                </p>
+                <div class="w-24 h-1 bg-goldCol-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="space-y-16">
+                <!-- 1. CARTAGENA -->
+                <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-100 hover:shadow-xl transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
+                        <div>
+                            <span class="text-goldCol-600 font-bold text-sm tracking-wider uppercase">Heroic Caribbean Coast</span>
+                            <h3 class="text-3xl font-extrabold text-emeraldCol-900 font-serif">Cartagena de Indias</h3>
+                        </div>
+                        <p class="text-slate-500 text-sm max-w-md">
+                            Renowned for its fortified colonial walls, Afro-Colombian roots, and nocturnal rhythms resounding in every public plaza.
+                        </p>
+                    </div>
+
+                    <!-- Images Gallery -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="comida%20bogota.png" alt="Traditional Cumbia Dancers in Cartagena" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1583531172005-814191b8b6c0?auto=format&fit=crop&w=600&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Traditional Cumbia Street Performers</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="festival%20medellin%20(3).jpg" alt="Cartagena Independence Carnival" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=600&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Independence Festival & Parades</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="https://images.unsplash.com/photo-1544986581-efac024faf62?auto=format&fit=crop&w=600&q=80" alt="Caribbean Fried Fish Platter" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Crisp Snapper & Coconut Rice</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Pillars Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-goldCol-500">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-utensils"></i>
+                                <h4 class="font-bold text-lg">Traditional Cuisine</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Crispy red snapper, caramelized coconut rice, fried plantains (patacones), egg arepas, and coconut lemonade.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-emeraldCol-700">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-music"></i>
+                                <h4 class="font-bold text-lg">Musical Roots</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Afro-Caribbean Champeta, traditional percussion-rich Cumbia, and lyrical coastal Vallenato ballads.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-amber-600">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-masks-theater"></i>
+                                <h4 class="font-bold text-lg">Festivals & Heritage</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Cartagena Independence Celebrations every November, the International Music Festival, and the literary Hay Festival.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. SANTA MARTA -->
+                <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-100 hover:shadow-xl transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
+                        <div>
+                            <span class="text-goldCol-600 font-bold text-sm tracking-wider uppercase">Oldest Coastal Gem</span>
+                            <h3 class="text-3xl font-extrabold text-emeraldCol-900 font-serif">Santa Marta</h3>
+                        </div>
+                        <p class="text-slate-500 text-sm max-w-md">
+                            Where sacred ancestral mountains reach the crystal-clear Caribbean, brimming with maritime traditions.
+                        </p>
+                    </div>
+
+                    <!-- Images Gallery -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="festival%20bogota%20(3).jpg" alt="Coastal Seafood Dish" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Fresh Catch by the Shore</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=600&q=80" alt="Tayrona National Park" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Tayrona National Natural Park</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Sunset in Santa Marta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Sunset Across the Bay</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Pillars Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-goldCol-500">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-utensils"></i>
+                                <h4 class="font-bold text-lg">Traditional Cuisine</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Coastal fish broth, cayeye (savory green banana mash with coastal artisanal cheese), and fresh shellfish casseroles.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-emeraldCol-700">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-music"></i>
+                                <h4 class="font-bold text-lg">Music & Folklore</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Accordion-driven Vallenato tales, indigenous flute melodies from the Sierra Nevada, and lively coastal rhythms.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-amber-600">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-water"></i>
+                                <h4 class="font-bold text-lg">Fiesta del Mar</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">The annual Sea Festival honors maritime traditions, aquatic sports tournaments, and nautical folk pageantry every July.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. BOGOTÁ -->
+                <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-100 hover:shadow-xl transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
+                        <div>
+                            <span class="text-goldCol-600 font-bold text-sm tracking-wider uppercase">High Andean Metropolis</span>
+                            <h3 class="text-3xl font-extrabold text-emeraldCol-900 font-serif">Bogotá D.C.</h3>
+                        </div>
+                        <p class="text-slate-500 text-sm max-w-md">
+                            Perched 2,600 meters above sea level, a global hub for world-class museums, culinary innovation, and monumental open-air festivals.
+                        </p>
+                    </div>
+
+                    <!-- Images Gallery -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8">
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="comida%20santa%20marta%20(3).jpg" alt="Ajiaco Santafereño Soup" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Traditional Ajiaco Santafereño</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="festival%20cartagena%20(3).jpg" alt="Andean Carnival and Dance" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Andean Folk Dance Celebrations</span>
+                            </div>
+                        </div>
+
+                        <div class="relative rounded-2xl overflow-hidden h-60 shadow-md group">
+                            <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80" alt="Monserrate Sanctuary" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
+                                <span class="text-white text-xs font-semibold">Monserrate Mountain Sanctuary</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Pillars Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-goldCol-500">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-bowl-food"></i>
+                                <h4 class="font-bold text-lg">Traditional Cuisine</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Ajiaco (chicken, three-potato soup infused with guasca herbs, served with capers and cream), tamal, and hot chocolate with artisanal cheese.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-emeraldCol-700">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-guitar"></i>
+                                <h4 class="font-bold text-lg">Music & Scene</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Traditional bambuco and pasillo string melodies blended with South America's most dynamic rock, indie, and jazz scene.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-amber-600">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-ticket"></i>
+                                <h4 class="font-bold text-lg">Global Festivals</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Rock al Parque (the continent's largest free rock event), the Ibero-American Theater Festival, and the Bogotá Book Expo (FILBo).</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 4. MEDELLÍN -->
+                <article class="bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-100 hover:shadow-xl transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
+                        <div>
+                            <span class="text-goldCol-600 font-bold text-sm tracking-wider uppercase">Paisa Heart & Innovation</span>
+                            <h3 class="text-3xl font-extrabold text-emeraldCol-900 font-serif">Medellín</h3>
+                        </div>
+                        <p class="text-slate-500 text-sm max-w-md">
+                            Nestled in the lush Aburrá Valley, renowned for its resilient innovation, blooming flowers, and spirited hospitality.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-goldCol-500">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-drumstick-bite"></i>
+                                <h4 class="font-bold text-lg">Traditional Cuisine</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Hearty Bandeja Paisa (tender beans, ground beef, crispy pork chicharrón, fried egg, ripe plantain, avocado, and corn arepa).</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-emeraldCol-700">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-music"></i>
+                                <h4 class="font-bold text-lg">Musical Rhythm</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">Witty improvised Trova verse battles, classical tango salons, and the global epicentre of contemporary Latin urban music.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-2xl border-l-4 border-amber-600">
+                            <div class="flex items-center gap-3 mb-2 text-emeraldCol-800">
+                                <i class="fa-solid fa-spa"></i>
+                                <h4 class="font-bold text-lg">Flower Festival</h4>
+                            </div>
+                            <p class="text-slate-600 text-sm">The world-famous Desfile de Silleteros in August, where mountain farmers carry intricate giant floral sculptures on their backs.</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: ACTIVITIES ================= -->
+        <section id="tab-activities" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-emeraldCol-700 bg-emeraldCol-50 px-3.5 py-1.5 rounded-full border border-emeraldCol-200">
+                    Adventure & Exploration
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-emeraldCol-950 font-serif mt-4">Things to Do in Colombia</h2>
+                <p class="text-slate-600 mt-4 text-base sm:text-lg">
+                    Build lifelong memories with excursions tailored for nature lovers, thrill seekers, and curious explorers.
+                </p>
+                <div class="w-24 h-1 bg-goldCol-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Activities Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Activity 1 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        🏖️
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">Sun & Caribbean Coastlines</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Unwind on warm turquoise waters across Santa Marta, Cartagena, or the secluded Rosario coral islands with boat charters and fresh tropical fruit.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Caribbean & Pacific <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Activity 2 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        🏔️
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">High Andes Trekking</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Ascend through mystical high-altitude Páramo ecosystems, trek Los Nevados glacial peaks, or marvel at giant wax palms in the Cocora Valley.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Colombian Andes <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Activity 3 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        🌴
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">Amazon Rainforest Expeditions</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Encounter unmatched biological diversity, sail alongside pink river dolphins in the Amazon, and walk under ancient jungle canopies.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Amazonas & Chocó <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Activity 4 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        💃
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">Salsa, Cumbia & Nightlife</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Learn fast-paced salsa in Cali's iconic dance halls, enjoy live acoustic Vallenato sessions, and dance under starry colonial rooftops.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Nightlife & Dance <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Activity 5 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        ☕
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">Coffee Farm & Tasting Tours</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Walk through lush mountainside fincas in the Coffee Cultural Landscape, picking ripe beans and savoring cup tastings guided by master baristas.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Coffee Triangle <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+
+                <!-- Activity 6 -->
+                <div class="group p-8 rounded-3xl bg-white border border-slate-100 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 text-slate-100 text-8xl font-black group-hover:text-emeraldCol-50 transition-colors pointer-events-none">
+                        📸
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-emeraldCol-50 text-emeraldCol-800 flex items-center justify-center text-2xl mb-6 group-hover:bg-emeraldCol-900 group-hover:text-goldCol-400 transition-colors">
+                        <i class="fa-solid fa-camera-retro"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-emeraldCol-950 mb-3 group-hover:text-emeraldCol-800 transition-colors">Scenic Photography & Heritage Towns</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Capture timeless vistas in preserved heritage villages such as Villa de Leyva, Barichara, and Guatapé, or shoot vibrant wildlife across nature reserves.
+                    </p>
+                    <span class="inline-flex items-center text-xs font-bold text-goldCol-600 uppercase tracking-wider gap-1">
+                        Heritage Towns <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION: CONTACT ================= -->
+        <section id="tab-contact" class="tab-content hidden py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden grid grid-cols-1 lg:grid-cols-5">
+                <!-- Info Sidebar -->
+                <div class="lg:col-span-2 bg-gradient-to-br from-emeraldCol-950 via-emeraldCol-900 to-emeraldCol-800 p-8 sm:p-10 text-white flex flex-col justify-between">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-goldCol-400 font-bold block mb-2">We Are Here to Help</span>
+                        <h2 class="text-3xl font-extrabold font-serif mb-4 leading-snug">Plan Your Dream Journey</h2>
+                        <p class="text-emeraldCol-100/90 text-sm leading-relaxed mb-8">
+                            Looking for a tailored Colombian itinerary, group tour, or personalized travel recommendations? Send us your inquiry today.
+                        </p>
+
+                        <div class="space-y-5 text-sm">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-goldCol-400">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <span>travel@discovercolombia.co</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-goldCol-400">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <span>+57 (601) 800-COLOMBIA</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-goldCol-400">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <span>Bogotá, Colombia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-8 border-t border-white/10 mt-8">
+                        <p class="text-xs text-emeraldCol-200">Bilingual 24/7 dedicated travel support in English and Spanish.</p>
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <div class="lg:col-span-3 p-8 sm:p-10 flex flex-col justify-center">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                        <div id="form-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" for="nombre">Full Name</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-user"></i>
+                                </span>
+                                <input id="nombre" type="text" required placeholder="e.g. Sarah Jenkins" class="w-full pl-10 pr-4 py-3 text-sm rounded-xl border border-slate-200 focus:border-emeraldCol-700 focus:ring-2 focus:ring-emeraldCol-700/20 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" for="email">Email Address</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </span>
+                                <input id="email" type="email" required placeholder="sarah@example.com" class="w-full pl-10 pr-4 py-3 text-sm rounded-xl border border-slate-200 focus:border-emeraldCol-700 focus:ring-2 focus:ring-emeraldCol-700/20 outline-none transition-all">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" for="destino">Preferred Destination</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400">
+                                    <i class="fa-solid fa-location-arrow"></i>
+                                </span>
+                                <select id="destino" class="w-full pl-10 pr-4 py-3 text-sm rounded-xl border border-slate-200 focus:border-emeraldCol-700 focus:ring-2 focus:ring-emeraldCol-700/20 outline-none transition-all bg-white text-slate-700">
+                                    <option value="Cartagena">Cartagena de Indias</option>
+                                    <option value="Santa Marta">Santa Marta & Tayrona National Park</option>
+                                    <option value="Medellín">Medellín & Coffee Region</option>
+                                    <option value="Bogotá">Bogotá Historic Capital</option>
+                                    <option value="Multi-Destination">Custom Multi-Destination Tour</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" for="mensaje">Message & Desired Dates</label>
+                            <textarea id="mensaje" required rows="4" placeholder="Let us know your estimated travel dates, party size, and favorite activities..." class="w-full p-4 text-sm rounded-xl border border-slate-200 focus:border-emeraldCol-700 focus:ring-2 focus:ring-emeraldCol-700/20 outline-none transition-all resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-emeraldCol-900 to-emeraldCol-800 hover:from-emeraldCol-800 hover:to-emeraldCol-700 text-white font-bold text-sm shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2">
+                            <span>Send Travel Inquiry</span>
+                            <i class="fa-solid fa-paper-plane text-goldCol-400"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= MODALS: CITY DETAILS ================= -->
+
+    <!-- Modal Cartagena -->
+    <div id="modal-cartagena" class="modal fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in border border-slate-100">
+            <button onclick="closeModal('modal-cartagena')" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 relative">
+                <img src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=1000&q=80" alt="Cartagena" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-emeraldCol-950 via-transparent to-transparent flex items-end p-6">
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-widest text-goldCol-400">UNESCO World Heritage Site</span>
+                        <h3 class="text-3xl font-extrabold text-white font-serif">Cartagena de Indias</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 space-y-6">
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    Situated on Colombia’s Caribbean coast, Cartagena is South America's colonial crown jewel. Its miles of fortified ramparts shelter romantic cobblestone squares, vibrant street life, and bougainvillea-draped balconies.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-landmark-flag text-goldCol-500"></i> Must-Visit Landmarks
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>The Clock Tower Gate & Old Town Plazas</li>
+                            <li>San Felipe de Barajas Fortress</li>
+                            <li>Rosario Islands archipelago day cruises</li>
+                            <li>Getsemaní artistic quarter & street murals</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-goldCol-500"></i> Culinary Highlights
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Crispy fried red snapper with plantain chips</li>
+                            <li>Sweet coconut rice with titoté raisins</li>
+                            <li>Arepa de huevo (crispy corn cake stuffed with egg)</li>
+                            <li>Chilled coconut lemonade</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="closeModal('modal-cartagena'); showTab('contact')" class="px-6 py-2.5 rounded-full bg-goldCol-500 text-emeraldCol-950 font-bold text-xs uppercase tracking-wider hover:bg-goldCol-400 transition-colors">
+                        Plan a Trip to Cartagena
+                    </button>
+                    <button onclick="closeModal('modal-cartagena')" class="text-xs text-slate-500 hover:text-slate-700 font-semibold">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Santa Marta -->
+    <div id="modal-santamarta" class="modal fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in border border-slate-100">
+            <button onclick="closeModal('modal-santamarta')" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 relative">
+                <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=1000&q=80" alt="Santa Marta" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-emeraldCol-950 via-transparent to-transparent flex items-end p-6">
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-widest text-goldCol-400">Natural Wonder</span>
+                        <h3 class="text-3xl font-extrabold text-white font-serif">Santa Marta</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 space-y-6">
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    The oldest surviving Spanish settlement in South America. It serves as the gateway to the world-renowned Tayrona National Natural Park and the sacred peaks of the Sierra Nevada.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-tree text-goldCol-500"></i> Must-Visit Landmarks
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Tayrona National Natural Park (Cabo San Juan)</li>
+                            <li>Expedition trekking to the Lost City (Teyuna)</li>
+                            <li>Taganga fishing bay and scuba diving spots</li>
+                            <li>Quinta de San Pedro Alejandrino estate</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-utensils text-goldCol-500"></i> Local Gastronomy
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Cayeye (savory green plantain mash with cheese)</li>
+                            <li>Coconut-infused seafood stew</li>
+                            <li>Shrimp cocktail with lime and Caribbean spices</li>
+                            <li>Exotic juices: corozo, passion fruit, and lulo</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="closeModal('modal-santamarta'); showTab('contact')" class="px-6 py-2.5 rounded-full bg-goldCol-500 text-emeraldCol-950 font-bold text-xs uppercase tracking-wider hover:bg-goldCol-400 transition-colors">
+                        Plan a Trip to Santa Marta
+                    </button>
+                    <button onclick="closeModal('modal-santamarta')" class="text-xs text-slate-500 hover:text-slate-700 font-semibold">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Medellín -->
+    <div id="modal-medellin" class="modal fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in border border-slate-100">
+            <button onclick="closeModal('modal-medellin')" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 relative">
+                <img src="https://images.unsplash.com/photo-1568632234157-ce7aecd03d0d?auto=format&fit=crop&w=1000&q=80" alt="Medellín" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-emeraldCol-950 via-transparent to-transparent flex items-end p-6">
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-widest text-goldCol-400">City of Eternal Spring</span>
+                        <h3 class="text-3xl font-extrabold text-white font-serif">Medellín</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 space-y-6">
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    Internationally lauded for its transformative urban innovation and warm climate. Surrounded by emerald Andean ridges, Medellín is a beacon of culture, entrepreneurship, and vibrant nightlife.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-shapes text-goldCol-500"></i> Iconic Highlights
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Botero Plaza with 23 monumental sculptures</li>
+                            <li>Comuna 13 outdoor escalators & street art tour</li>
+                            <li>Arví Ecotourism Park reached via Metrocable</li>
+                            <li>El Poblado cafes and botanical gardens</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-mug-hot text-goldCol-500"></i> Paisa Flavors
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Full Bandeja Paisa with avocado and plantains</li>
+                            <li>Sweet corn arepas topped with fresh cheese</li>
+                            <li>Antioquian beef empanadas with homemade chili</li>
+                            <li>Award-winning specialty pour-over coffee</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="closeModal('modal-medellin'); showTab('contact')" class="px-6 py-2.5 rounded-full bg-goldCol-500 text-emeraldCol-950 font-bold text-xs uppercase tracking-wider hover:bg-goldCol-400 transition-colors">
+                        Plan a Trip to Medellín
+                    </button>
+                    <button onclick="closeModal('modal-medellin')" class="text-xs text-slate-500 hover:text-slate-700 font-semibold">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Bogotá -->
+    <div id="modal-bogota" class="modal fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto flex items-center justify-center">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative animate-fade-in border border-slate-100">
+            <button onclick="closeModal('modal-bogota')" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-900/60 hover:bg-slate-900 text-white flex items-center justify-center transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 relative">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1000&q=80" alt="Bogotá" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-emeraldCol-950 via-transparent to-transparent flex items-end p-6">
+                    <div>
+                        <span class="text-xs uppercase font-bold tracking-widest text-goldCol-400">Cosmopolitan Capital</span>
+                        <h3 class="text-3xl font-extrabold text-white font-serif">Bogotá D.C.</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 sm:p-8 space-y-6">
+                <p class="text-slate-600 leading-relaxed text-sm">
+                    Standing at 2,600 meters on an Andean plateau, Bogotá captivates travelers with its grand pre-Columbian gold collections, bohemian quarters, mountain outlooks, and thriving gastronomic innovation.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns text-goldCol-500"></i> Points of Interest
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Monserrate Sanctuary (3,152m above sea level)</li>
+                            <li>The Gold Museum (world's largest pre-Hispanic display)</li>
+                            <li>Historic La Candelaria neighborhood</li>
+                            <li>Bolívar Square and the National Capitol</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-2xl">
+                        <h4 class="font-bold text-emeraldCol-900 text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-bowl-food text-goldCol-500"></i> Capital Flavors
+                        </h4>
+                        <ul class="text-xs text-slate-600 space-y-1.5 pl-2 list-disc list-inside">
+                            <li>Traditional Ajiaco chicken and corn soup</li>
+                            <li>Hot chocolate served with farm cheese & bread</li>
+                            <li>Tolimense breakfast tamales</li>
+                            <li>Crispy wafer obleas drizzled with caramel</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                    <button onclick="closeModal('modal-bogota'); showTab('contact')" class="px-6 py-2.5 rounded-full bg-goldCol-500 text-emeraldCol-950 font-bold text-xs uppercase tracking-wider hover:bg-goldCol-400 transition-colors">
+                        Plan a Trip to Bogotá
+                    </button>
+                    <button onclick="closeModal('modal-bogota')" class="text-xs text-slate-500 hover:text-slate-700 font-semibold">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-emeraldCol-950 text-white pt-16 pb-12 border-t border-white/10 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+                <!-- Col 1 -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-goldCol-500 text-emeraldCol-950 flex items-center justify-center font-bold text-lg">
+                            🇨🇴
+                        </div>
+                        <span class="text-2xl font-extrabold font-serif">Discover Colombia</span>
+                    </div>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Dedicated to responsible tourism, environmental preservation, and sharing the unmatched cultural heritage of Colombia with the world.
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-goldCol-400 font-bold text-sm uppercase tracking-wider mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#home" onclick="showTab('home')" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#destinations" onclick="showTab('destinations')" class="hover:text-white transition-colors">Featured Destinations</a></li>
+                        <li><a href="#culture" onclick="showTab('culture')" class="hover:text-white transition-colors">Culture & Culinary Arts</a></li>
+                        <li><a href="#activities" onclick="showTab('activities')" class="hover:text-white transition-colors">Activities & Tours</a></li>
+                        <li><a href="#contact" onclick="showTab('contact')" class="hover:text-white transition-colors">Contact & Inquiries</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-goldCol-400 font-bold text-sm uppercase tracking-wider mb-4">Destinations</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><button onclick="showTab('destinations'); openModal('modal-cartagena')" class="hover:text-white transition-colors">Cartagena de Indias</button></li>
+                        <li><button onclick="showTab('destinations'); openModal('modal-santamarta')" class="hover:text-white transition-colors">Santa Marta & Tayrona</button></li>
+                        <li><button onclick="showTab('destinations'); openModal('modal-medellin')" class="hover:text-white transition-colors">Medellín & Guatapé</button></li>
+                        <li><button onclick="showTab('destinations'); openModal('modal-bogota')" class="hover:text-white transition-colors">Bogotá Cultural Capital</button></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-goldCol-400 font-bold text-sm uppercase tracking-wider mb-4">Connect With Us</h4>
+                    <p class="text-xs text-slate-300 mb-4">Follow real-time travel inspirations and wildlife discoveries across Colombia.</p>
+                    <div class="flex items-center gap-3">
+                        <a href="javascript:void(0)" aria-label="Instagram" class="w-10 h-10 rounded-full bg-white/10 hover:bg-goldCol-500 hover:text-emeraldCol-950 flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="javascript:void(0)" aria-label="Facebook" class="w-10 h-10 rounded-full bg-white/10 hover:bg-goldCol-500 hover:text-emeraldCol-950 flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="javascript:void(0)" aria-label="TikTok" class="w-10 h-10 rounded-full bg-white/10 hover:bg-goldCol-500 hover:text-emeraldCol-950 flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="javascript:void(0)" aria-label="YouTube" class="w-10 h-10 rounded-full bg-white/10 hover:bg-goldCol-500 hover:text-emeraldCol-950 flex items-center justify-center transition-all">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                <p>© 2026 Discover Colombia. All rights reserved.</p>
+                <p class="flex items-center gap-1">
+                    Proudly crafted to celebrate <span class="text-amber-400 font-bold">Colombia</span> 🇨🇴
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Single Page Tab Navigation
+        function showTab(tabId) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.classList.add('hidden');
+                tab.classList.remove('block');
+            });
+
+            // Display active tab
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) {
+                activeTab.classList.remove('hidden');
+                activeTab.classList.add('block');
+            }
+
+            // Update desktop navbar button states
+            const buttons = document.querySelectorAll('.nav-tab-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-white/25', 'text-amber-300', 'shadow');
+                btn.classList.add('text-white');
+            });
+
+            const activeBtn = document.getElementById('nav-btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-white/25', 'text-amber-300', 'shadow');
+                activeBtn.classList.remove('text-white');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Drawer
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Modal Handlers
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close on backdrop click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Contact Form Submission Handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('nombre').value;
+            const destination = document.getElementById('destino').value;
+            const feedback = document.getElementById('form-feedback');
+
+            feedback.className = 'p-4 rounded-xl text-sm font-medium bg-emerald-50 text-emerald-800 border border-emerald-200 block';
+            feedback.innerHTML = `
+                <div class="flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-circle-check text-emeraldCol-700 text-lg"></i>
+                    <strong class="font-bold">Thank you, ${fullName}!</strong>
+                </div>
+                <p class="text-xs">Your inquiry for <strong>${destination}</strong> has been received. Our concierge team will reach out within 24 hours.</p>
+            `;
+
+            document.getElementById('contact-form').reset();
+
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 6000);
+        }
+
+        // Set Default View
+        window.addEventListener('DOMContentLoaded', () => {
+            showTab('home');
+        });
+    </script>
+</body>
+</html>
